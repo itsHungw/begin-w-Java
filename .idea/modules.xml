@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Array/Array.iml" filepath="$PROJECT_DIR$/Array/Array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BookManagement/BookManagement.iml" filepath="$PROJECT_DIR$/BookManagement/BookManagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/StudentManagement/StudentManagement.iml" filepath="$PROJECT_DIR$/StudentManagement/StudentManagement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/javaCode.iml" filepath="$PROJECT_DIR$/.idea/javaCode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pet-race/pet-race.iml" filepath="$PROJECT_DIR$/pet-race/pet-race.iml" />
+    </modules>
+  </component>
+</project>

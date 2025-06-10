@@ -14,6 +14,7 @@ public class Main {
         Hamster h1 = new Hamster("Jerry", 2025, 0.7);
 
 
+
         d1.showProfile();
 
         c1.showProfile();

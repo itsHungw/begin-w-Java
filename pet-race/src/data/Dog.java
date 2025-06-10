@@ -9,7 +9,7 @@ public class Dog extends Pet{
         super(name, yob, weight);
 
     }
-
+//using Random() to init random speed
     @Override
     public double run() {
         Random rd = new Random();
