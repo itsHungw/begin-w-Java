@@ -38,7 +38,7 @@ public class Container {
 
     public void showStudentList() {
         if (arr.isEmpty())
-            System.out.println("The List is EMPTY !!!");
+            System.out.println("The List of " +major +" is EMPTY !!!");
         for (int i = 0; i < arr.size() - 1; i++) {
             for (int j = i + 1; j < arr.size(); j++) {
                 if (arr.get(i).getGpa() < arr.get(j).getGpa()) {
@@ -88,6 +88,34 @@ public class Container {
             double newGPA = Double.parseDouble(sc.nextLine());
             x.setGpa(newGPA);
             x.showProfile();
+        }
+    }
+
+    public void removeStudent() {
+        System.out.print("Enter ID student want to REMOVE: ");
+        String indexID = sc.nextLine();
+        Student x = searchStudent(indexID); //reuse Search return obj
+        if (x == null)
+            System.out.println("NOT FOUND !!");
+        else {
+            x.showProfile();
+            String choose;
+            do {
+                System.out.println("REMOVE student ? Yes/No");
+                System.out.println("1. YES");
+                System.out.println("2. NO");
+                choose = sc.nextLine();
+                switch (choose) {
+                    case "1":
+                        arr.remove(x);
+                        System.out.println("REMOVE students " +x.getId() +" successfully");
+                        break;
+                    default:
+                        System.out.print("Error, Enter again: ");
+                }
+            } while (choose.equalsIgnoreCase("2"));
+
+
         }
     }
 }
