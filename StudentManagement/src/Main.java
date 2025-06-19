@@ -97,11 +97,11 @@ public class Main {
 
     public static void menu() {
         System.out.println("___MENU___");
-        System.out.println("1.Add");
-        System.out.println("2.Display");
-        System.out.println("3.Find");
-        System.out.println("4.Update");
-        System.out.println("5.Delete");
+        System.out.println("1.Add new student");
+        System.out.println("2.Display list of student");
+        System.out.println("3.Find student by ID");
+        System.out.println("4.Update student GPA");
+        System.out.println("5.Delete student from list");
         System.out.println("0.Exit");
         System.out.print("Enter your choice: ");
     }
