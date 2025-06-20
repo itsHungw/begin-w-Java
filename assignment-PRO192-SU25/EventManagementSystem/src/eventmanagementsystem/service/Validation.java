@@ -45,9 +45,7 @@ public class Validation {
             LocalDate start = LocalDate.parse(startDate, dft);
             LocalDate end = LocalDate.parse(endDate, dft);
             return end.isAfter(start);
-        }catch (DateTimeParseException e){
-            return false;
-        }catch (NullPointerException e) {
+        }catch (DateTimeParseException | NullPointerException e){
             return false;
         }
     }

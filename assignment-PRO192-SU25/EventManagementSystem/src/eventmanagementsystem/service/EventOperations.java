@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface EventOperations {
 
-    public void creatEvent(Event event);
+    public void creatEvent();
 
     public void updateEvent(int eventID, Event event);
 
