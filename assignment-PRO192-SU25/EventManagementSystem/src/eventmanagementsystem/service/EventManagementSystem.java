@@ -7,9 +7,9 @@ package eventmanagementsystem.service;/*
 import eventmanagementsystem.data.Event;
 import eventmanagementsystem.data.Organizer;
 import eventmanagementsystem.data.Venue;
-import org.w3c.dom.ls.LSOutput;
 
-import java.sql.SQLOutput;
+
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
@@ -89,7 +89,6 @@ public class EventManagementSystem implements EventOperations {
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Error: event ID must be number! Please try again.");
-                ;
             }
         }
         String eventName;
@@ -258,7 +257,7 @@ public class EventManagementSystem implements EventOperations {
         System.out.println("2. No");
         String choice = sc.nextLine();
         do {
-            switch (choice.toLowerCase()) {
+            switch (choice) {
                 case "1":
                     return true;
                 case "2":
@@ -266,7 +265,7 @@ public class EventManagementSystem implements EventOperations {
                 default:
                     System.out.println("Invalid input!");
             }
-        } while (choice.equalsIgnoreCase("n"));
+        } while (choice.equalsIgnoreCase("2"));
         return true;
     }
 
