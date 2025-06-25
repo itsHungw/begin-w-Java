@@ -9,7 +9,6 @@ import eventmanagementsystem.data.Organizer;
 import eventmanagementsystem.data.Venue;
 
 
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
@@ -75,7 +74,7 @@ public class EventManagementSystem implements EventOperations {
                 }
                 break;
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println("Invalid format of ID! ");
             }
         }
         int eventID;
@@ -85,8 +84,8 @@ public class EventManagementSystem implements EventOperations {
                 eventID = Integer.parseInt(sc.nextLine());
                 if (!Validation.isUniqueEventId(eventID, events)) {
                     System.out.println("Error: ID of Event already exist");
-                }
-                break;
+                } else
+                    break;
             } catch (NumberFormatException e) {
                 System.out.println("Error: event ID must be number! Please try again.");
             }
@@ -97,9 +96,8 @@ public class EventManagementSystem implements EventOperations {
             eventName = sc.nextLine();
             if (!Validation.isValidName(eventName)) {
                 System.out.println("Error: Event name must be longer than 3 characters! Please try again.");
-                continue;
-            }
-            break;
+            } else
+                break;
         }
         String startDate;
         String endDate;
@@ -110,9 +108,8 @@ public class EventManagementSystem implements EventOperations {
             endDate = sc.nextLine();
             if (!Validation.isValidDate(startDate, endDate)) {
                 System.out.println("Error: Invalid format of start date and end date! Please try again.");
-                continue;
-            }
-            break;
+            } else
+                break;
         }
 
         int expectedAttendees;
@@ -122,9 +119,8 @@ public class EventManagementSystem implements EventOperations {
                 expectedAttendees = Integer.parseInt(sc.nextLine());
                 if (!Validation.isAttendeesPositive(expectedAttendees)) {
                     System.out.println("Error: Attendees must be greater than 0! Please try again.");
-                    continue;
-                }
-                break;
+                } else
+                    break;
             } catch (NumberFormatException e) {
                 System.out.println("Error: Input must be number! Please try again.");
             }
@@ -157,9 +153,9 @@ public class EventManagementSystem implements EventOperations {
                     int newID = Integer.parseInt(IdEvent);
                     if (Validation.isUniqueEventId(newID, events) || newID == eventID) {
                         exsitEvent.setEventID(newID);
+                        break;
                     } else {
                         System.out.println("Error :new ID already exist");
-                        return;
                     }
                 }break;
             } catch (NumberFormatException e) {
@@ -177,7 +173,8 @@ public class EventManagementSystem implements EventOperations {
                 } else {
                     System.out.println("Error: Name event must long above 3 character!");
                 }
-            }break;
+            }
+            break;
         }
 
         while (true) {
@@ -189,8 +186,9 @@ public class EventManagementSystem implements EventOperations {
                     if (Validation.isOrganizerIdExist(newIdOrg, organizers)) {
                         exsitEvent.setOrganizerID(newIdOrg);
                         break;
-                    } else
+                    } else {
                         System.out.println("Error: ID of Organizer does not exist");
+                    }
                 }break;
             } catch (NumberFormatException e) {
                 System.out.println("ID MUST BE NUMBER. Try again.!");
@@ -206,9 +204,11 @@ public class EventManagementSystem implements EventOperations {
                     if (Validation.isVenueIdExist(newIdVenue, venues)) {
                         exsitEvent.setVenueID(newIdVenue);
                         break;
-                    } else
+                    } else {
                         System.out.println("Error: ID of Venue does not exist");
-                }break;
+                    }
+                }
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("ID MUST BE NUMBER. Try again.!");
             }
@@ -232,23 +232,23 @@ public class EventManagementSystem implements EventOperations {
             }
         }
 
-    while (true) {
-        try {
-            System.out.print("Enter new Expected Attendees of Event : ");
-            String newAttend = sc.nextLine();
-            if (!newAttend.isEmpty()) {
-                int newAttendees = Integer.parseInt(newAttend);
-                if (Validation.isAttendeesPositive(newAttendees))
-                    exsitEvent.setExpectedAttendees(newAttendees);
-                else
-                    System.out.println("Attendees must be greater than 0");
-            }break;
-        } catch (NumberFormatException e) {
-            System.out.println("Attendees must be number!");
+        while (true) {
+            try {
+                System.out.print("Enter new Expected Attendees of Event : ");
+                String newAttend = sc.nextLine();
+                if (!newAttend.isEmpty()) {
+                    int newAttendees = Integer.parseInt(newAttend);
+                    if (Validation.isAttendeesPositive(newAttendees)) {
+                        exsitEvent.setExpectedAttendees(newAttendees);
+                        break;
+                    } else {
+                        System.out.println("Attendees must be greater than 0");
+                    }
+                }break;
+            } catch (NumberFormatException e) {
+                System.out.println("Attendees must be number!");
+            }
         }
-    }
-
-
     }
 
     @Override
@@ -365,12 +365,13 @@ public class EventManagementSystem implements EventOperations {
                             System.out.println("Do you want to DELETE event " + event.getEventName() + " with ID: " + event.getEventID() + " ?");
                             if (deleteEvent(eventID)) {
                                 events.remove(event);
+                                System.out.println("Deleted successfully..");
                                 break;
                             } else System.out.println("Exiting DELETE feature!..");
-                            System.out.println("Deleted successfully..");
+                            break;
                         } catch (NumberFormatException e) {
                             System.out.println("ID input must be number!..");
-                        }catch (NullPointerException e) {
+                        } catch (NullPointerException e) {
                             System.out.println("Event not found!");
                             break;
                         }
@@ -383,7 +384,7 @@ public class EventManagementSystem implements EventOperations {
                         for (Event eventsFounded : findEventsByName(name)) {
                             System.out.println(eventsFounded);
                         }
-                    }else System.out.println("Error! Event not found!");
+                    } else System.out.println("Error! Event not found!");
 
                     break;
                 case "7":
@@ -401,7 +402,7 @@ public class EventManagementSystem implements EventOperations {
     }
 
 
-    private static void displayMenu() {
+    private void displayMenu() {
         System.out.println("\n========== EVENT MANAGEMENT SYSTEM ==========");
         System.out.println("1. Create Event");
         System.out.println("2. List All Events ");
