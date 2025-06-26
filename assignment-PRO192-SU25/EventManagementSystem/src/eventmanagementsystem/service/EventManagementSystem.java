@@ -9,6 +9,7 @@ import eventmanagementsystem.data.Organizer;
 import eventmanagementsystem.data.Venue;
 
 
+import java.io.*;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
@@ -43,8 +44,60 @@ public class EventManagementSystem implements EventOperations {
         venues.add(new Venue(5, "Downtown Auditorium"));
         venues.add(new Venue(6, "Community House"));
         venues.add(new Venue(7, "University Main Hall"));
+
+        try {
+            loadEventFromFile("event.txt");
+        }catch(IOException e){
+            System.out.println("Not found any event!. Start with empty file!");
+        }
     }
 
+
+
+    public void saveEventToFile(String filename) throws IOException {
+        try (BufferedWriter writter = new BufferedWriter(new FileWriter(filename))) {
+            for (Event x : events) {
+                writter.write(String.format("%d,%s,%s,%s,%s,%s,%d",
+                        x.getEventID(),
+                        x.getEventName(),
+                        x.getOrganizerID(),
+                        x.getVenueID(),
+                        x.getStartDate(),
+                        x.getEndDate(),
+                        x.getExpectedAttendees()));
+                writter.newLine();
+            }
+            System.out.println("Events save successfully!.");
+        }
+    }
+
+    public void loadEventFromFile(String filename) throws IOException{
+        events.clear();
+        try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                String[] part = line.split(",", 7);
+                if (part.length == 7){
+                    try {
+                        int eventID = Integer.parseInt(part[0]);
+                        String eventName = part[1];
+                        int organizer = Integer.parseInt(part[2]);
+                        int venue = Integer.parseInt(part[3]);
+                        String startDate = part[4];
+                        String endDate = part[5];
+                        int expectedAttendees = Integer.parseInt(part[6]);
+                        Event event = new Event(eventID, eventName, organizer, venue, startDate, endDate, expectedAttendees);
+                        String validation = Validation.validateEvent(event, events, organizers,venues);
+                        if (validation == null){
+                            events.add(event);
+                        }else System.out.println("Skipping invalid event from file: " +validation);
+                    } catch (Exception e) {
+                        System.out.println("Skipping invalid event from file: " +line) ;
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public void creatEvent() {
@@ -157,7 +210,8 @@ public class EventManagementSystem implements EventOperations {
                     } else {
                         System.out.println("Error :new ID already exist");
                     }
-                }break;
+                }
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid type of input. Try again.!");
             }
@@ -189,7 +243,8 @@ public class EventManagementSystem implements EventOperations {
                     } else {
                         System.out.println("Error: ID of Organizer does not exist");
                     }
-                }break;
+                }
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("ID MUST BE NUMBER. Try again.!");
             }
@@ -244,7 +299,8 @@ public class EventManagementSystem implements EventOperations {
                     } else {
                         System.out.println("Attendees must be greater than 0");
                     }
-                }break;
+                }
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Attendees must be number!");
             }
@@ -316,7 +372,7 @@ public class EventManagementSystem implements EventOperations {
     //public ArrayList<Event> getEvents(){return events;}
 
 
-    public void main(String[] args) {
+    public void main(String[] args) throws IOException {
         initialData();
         while (true) {
             displayMenu();
@@ -382,11 +438,20 @@ public class EventManagementSystem implements EventOperations {
                     String name = sc.nextLine();
                     if (!(findEventsByName(name).isEmpty())) {
                         for (Event eventsFounded : findEventsByName(name)) {
-                            System.out.println(eventsFounded);
+                            System.out.printf("|%-10s|%-20s|%-25s|%-25s|%-15s|%-15s|%-24s\n",
+                                    eventsFounded.getEventID(),
+                                    eventsFounded.getEventName(),
+                                    findOrganizerByID(eventsFounded.getOrganizerID()).getOrganizerName(),
+                                    findVenueByID(eventsFounded.getVenueID()).getVenueName(),
+                                    eventsFounded.getStartDate(),
+                                    eventsFounded.getEndDate(),
+                                    eventsFounded.getExpectedAttendees());
                         }
                     } else System.out.println("Error! Event not found!");
 
                     break;
+                case "6":
+                    saveEventToFile("event.txt");
                 case "7":
                     System.out.println("Thank you for using Event Management System!");
                     System.out.println("Exiting!...");
@@ -398,7 +463,6 @@ public class EventManagementSystem implements EventOperations {
             System.out.println("\nPress Enter to continue...");
             sc.nextLine();
         }
-
     }
 
 
