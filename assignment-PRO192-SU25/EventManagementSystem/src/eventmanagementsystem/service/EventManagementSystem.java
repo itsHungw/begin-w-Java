@@ -384,13 +384,13 @@ public class EventManagementSystem implements EventOperations {
                     creatEvent();
                     break;
                 case "2":
-                    System.out.printf("|%-10s|%-20s|%-25s|%-25s|%-15s|%-15s|%-24s\n",
+                    System.out.printf("|%-10s|%-30s|%-25s|%-25s|%-15s|%-15s|%-24s\n",
                             "Event ID", "Event Name", "Organizer", "Venue", "Start Date", "End Date", "Expected Attendance");
                     if (listAllEvents().isEmpty()) {
                         System.out.println("No events Available!");
                     }
                     for (Event x : listAllEvents())
-                        System.out.printf("|%-10s|%-20s|%-25s|%-25s|%-15s|%-15s|%-24s\n",
+                        System.out.printf("|%-10s|%-30s|%-25s|%-25s|%-15s|%-15s|%-24s\n",
                                 x.getEventID(),
                                 x.getEventName(),
                                 findOrganizerByID(x.getOrganizerID()).getOrganizerName(),
@@ -438,7 +438,7 @@ public class EventManagementSystem implements EventOperations {
                     String name = sc.nextLine();
                     if (!(findEventsByName(name).isEmpty())) {
                         for (Event eventsFounded : findEventsByName(name)) {
-                            System.out.printf("|%-10s|%-20s|%-25s|%-25s|%-15s|%-15s|%-24s\n",
+                            System.out.printf("|%-10s|%-30s|%-25s|%-25s|%-15s|%-15s|%-24s\n",
                                     eventsFounded.getEventID(),
                                     eventsFounded.getEventName(),
                                     findOrganizerByID(eventsFounded.getOrganizerID()).getOrganizerName(),
@@ -452,6 +452,7 @@ public class EventManagementSystem implements EventOperations {
                     break;
                 case "6":
                     saveEventToFile("event.txt");
+                    break;
                 case "7":
                     System.out.println("Thank you for using Event Management System!");
                     System.out.println("Exiting!...");
@@ -473,6 +474,7 @@ public class EventManagementSystem implements EventOperations {
         System.out.println("3. Update Event");
         System.out.println("4. Delete Event");
         System.out.println("5. Search Events by Name");
+        System.out.println("6. Save event to file text(.txt)");
         System.out.println("7. Exit");
         System.out.println("=============================================");
     }
