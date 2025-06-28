@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package eventmanagementsystem.service;
-import eventmanagementsystem.data.Event;
+import eventmanagementsystem.models.Event;
 import java.util.List;
 
 /**

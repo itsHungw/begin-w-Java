@@ -1,8 +1,8 @@
 package eventmanagementsystem.service;
 
-import eventmanagementsystem.data.Event;
-import eventmanagementsystem.data.Organizer;
-import eventmanagementsystem.data.Venue;
+import eventmanagementsystem.models.Event;
+import eventmanagementsystem.models.Organizer;
+import eventmanagementsystem.models.Venue;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
